@@ -13,7 +13,9 @@ namespace Company_Employees.ContextFactory
                 .AddJsonFile("appsettings.json")
                 .Build();
             var Builder = new DbContextOptionsBuilder<RepositoryContext>()
-            .UseSqlServer(Configuration.GetConnectionString("sqlconnection"));
+            .UseSqlServer(Configuration.GetConnectionString("sqlConnection"),
+                b => b.MigrationsAssembly("Company_Employees"));
+
             return new RepositoryContext(Builder.Options);
         }
     }
