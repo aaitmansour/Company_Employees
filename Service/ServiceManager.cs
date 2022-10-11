@@ -8,7 +8,7 @@ using Contracts;
 
 namespace Service
 {
-    public sealed class ServiceManager : IServerManager
+    public sealed class ServiceManager : IServiceManager
     {
         private readonly Lazy<ICompanyService> _companyService;
         private readonly Lazy<IEmployeeService> _employeeService;
