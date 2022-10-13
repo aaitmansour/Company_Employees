@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using LoggerService;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service;
@@ -26,7 +27,7 @@ namespace Company_Employees.Extensions
             });
 
         public static void ConfigureLoggerService(this IServiceCollection services) =>
-            services.AddSingleton<ILoggerManager, ILoggerManager>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
             services.AddScoped<IRepositoryManager, RepositoryManager>();

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Service.Contracts;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,23 @@ namespace CompanyEmployee.Presentation.Controllers
     [ApiController]
     public class CompaniesControllor : ControllerBase
     {
+        private readonly IServiceManager _service;
+
+        public CompaniesControllor(IServiceManager service) =>
+            _service = service;
+
+        [HttpGet]
+        public IActionResult GetCompanies()
+        {
+            try
+            {
+                var companies = _service.CompanyService.GetAllCompanies(trackchanges: false);
+                return Ok(companies);
+            }
+            catch
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
