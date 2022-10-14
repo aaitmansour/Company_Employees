@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.Exceptions;
 
 namespace Service
 {
@@ -31,6 +32,15 @@ namespace Service
             return comapaniesDto;
         }
 
-        
+        public CompanyDto GetCompany(Guid id, bool trackchanges)
+        {
+            var company = _repository.Company.GetCompany(id, trackchanges);
+            //check if company is null
+            if(company is null)
+                throw new CompanyNotFoundException(id);
+
+            var companyDto = _mapper.Map<CompanyDto>(company);
+            return companyDto;
+        }
     }
 }

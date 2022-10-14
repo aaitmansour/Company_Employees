@@ -18,7 +18,7 @@ namespace CompanyEmployee.Presentation.Controllers
         public CompaniesControllor(IServiceManager service) =>
             _service = service;
 
-        [HttpGet]
+        [HttpGet("{id:Guid}")]
         public IActionResult GetCompanies()
         {
             //throw new Exception("excptin");

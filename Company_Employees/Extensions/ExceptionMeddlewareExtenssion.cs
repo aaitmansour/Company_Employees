@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Entities.ErrorModel;
 using System.Net;
+using Entities.Exceptions;
 
 namespace Company_Employees.Extensions
 {
@@ -20,11 +21,17 @@ namespace Company_Employees.Extensions
 
                     if(contexteFeature != null)
                     {
+                        context.Response.StatusCode = contexteFeature.Error switch
+                        {
+                            NotFoundException => StatusCodes.Status404NotFound,
+                            _ => StatusCodes.Status500InternalServerError
+                        };
+
                         logger.LogError($"Something went Wrong : {contexteFeature.Error}");
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             StatusCode = context.Response.StatusCode,
-                            Message = "Internal server error.",
+                            Message = contexteFeature.Error.Message,
                         }.ToString());
                     }
                 });
