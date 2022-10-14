@@ -1,5 +1,6 @@
 ﻿using System;
 using Service.Contracts;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,10 @@ namespace Service
         private readonly Lazy<ICompanyService> _companyService;
         private readonly Lazy<IEmployeeService> _employeeService;
 
-        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger)
+        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper mapper)
         {
-            _companyService = new Lazy<ICompanyService>(() => new CompanyService(repositoryManager, logger));
-            _employeeService = new Lazy<IEmployeeService>(() => new EmployeeService(repositoryManager, logger));
+            _companyService = new Lazy<ICompanyService>(() => new CompanyService(repositoryManager, logger, mapper));
+            _employeeService = new Lazy<IEmployeeService>(() => new EmployeeService(repositoryManager, logger, mapper));
         }
         public ICompanyService CompanyService => _companyService.Value;
 

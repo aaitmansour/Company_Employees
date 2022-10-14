@@ -2,6 +2,7 @@
 using Entities.Modeles;
 using Service.Contracts;
 using Shared.DataTransferObject;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,14 @@ namespace Service
     internal sealed class CompanyService : ICompanyService
     {
         private readonly IRepositoryManager _repository;
-        private readonly ILoggerManager _logger; 
+        private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
-        public CompanyService(IRepositoryManager repository, ILoggerManager Logger)
+        public CompanyService(IRepositoryManager repository, ILoggerManager Logger, IMapper mapper)
         {
             _repository = repository;
             _logger = Logger;
+            _mapper = mapper;
         }
 
         public IEnumerable<CompanyDto> GetAllCompanies(bool trackchanges)
@@ -26,7 +29,7 @@ namespace Service
             try
             {
                 var companies = _repository.Company.GetAllCompanies(trackchanges);
-                var comapaniesDto = companies.Select(c => new CompanyDto(c.id, c.name ?? "", String.Join(' ', c.adresse, c.country))).ToList();
+                var comapaniesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
                 return comapaniesDto;
             }
             catch (Exception ex)
