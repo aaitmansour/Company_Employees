@@ -1,4 +1,5 @@
 using Company_Employees.Extensions;
+using Contracts;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
 var builder = WebApplication.CreateBuilder(args);
@@ -29,9 +30,12 @@ builder.Services.ConfigureLoggerService();
 
 var app = builder.Build();
 
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigueExceptionHandler(logger);
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsProduction())
 {
+    app.UseHsts();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
