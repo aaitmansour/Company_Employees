@@ -14,10 +14,10 @@ namespace CompanyEmployee.Presentation.Controllers
         private readonly IServiceManager _service;
         public EmployeesController(IServiceManager service) => _service = service;
 
-        [HttpGet]
-        public IActionResult GetEmployeesForCompany(Guid companyId)
+        [HttpGet("{id:guid}")]
+        public IActionResult GetEmployeesForCompany(Guid companyId, Guid id)
         {
-            var employees = _service.EmployeeService.GetEmployees(companyId, trackchanges:false);
+            var employees = _service.EmployeeService.GetEmployee(companyId, id, trackchanges: false);
             return Ok(employees);
         }
 
