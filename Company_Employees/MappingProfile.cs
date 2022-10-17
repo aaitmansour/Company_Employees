@@ -10,7 +10,7 @@ namespace Company_Employees
         {
             
             CreateMap<Company, CompanyDto>()
-                .ForCtorParam("fulladresse",
+                .ForMember(c => c.fulladresse,
                     opt => opt.MapFrom(x => string.Join(' ', x.adresse, x.country)));
 
             CreateMap<Employee, EmployeeDto>();
