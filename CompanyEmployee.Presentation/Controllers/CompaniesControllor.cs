@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.DataTransferObject;
 
 namespace CompanyEmployee.Presentation.Controllers
 {
@@ -18,12 +19,22 @@ namespace CompanyEmployee.Presentation.Controllers
         public CompaniesControllor(IServiceManager service) =>
             _service = service;
 
-        [HttpGet("{id:Guid}")]
+        [HttpGet("{id:Guid}", Name = "CompanyById")]
         public IActionResult GetCompanies()
         {
             //throw new Exception("excptin");
             var companies = _service.CompanyService.GetAllCompanies(trackchanges: false);
             return Ok(companies);
+        }
+
+        [HttpPost]
+        public IActionResult CreateCompany([FromBody] CompanyForCreationDto company)
+        {
+            if (company is null)
+                return BadRequest("CompanyForCreationDto object is null");
+
+            var createdCompany = _service.CompanyService.CreateCompany(company);
+            return CreatedAtRoute("CompanyById", new { id = createdCompany.id }, createdCompany);
         }
     }
 }
