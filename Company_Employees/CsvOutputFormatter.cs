@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Shared.DataTransferObject;
-using System.Net.Http.Headers;
+//using System.Net.Http.Headers;
+using Microsoft.Net.Http.Headers;
 using System.Text;
 
 namespace Company_Employees
