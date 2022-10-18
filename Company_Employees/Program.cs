@@ -20,6 +20,7 @@ builder.Services.AddControllers(config =>
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;
 }).AddXmlDataContractSerializerFormatters()
+   .AddCustomCSVFormater()
     .AddApplicationPart(typeof(CompanyEmployee.Presentation.AssemplyReference).Assembly);
 
 
