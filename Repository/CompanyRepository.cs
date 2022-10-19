@@ -18,10 +18,15 @@ namespace Repository
 
         public void CreateCompany(Company company) => Create(company);
 
-        public IEnumerable<Company> GetAllCompanies(bool trackchanges)=>
-            FindAll(trackchanges)
+        public IEnumerable<Company> GetAllCompanies(bool trackChanges)=>
+            FindAll(trackChanges)
             .OrderBy(c => c.name)
             .ToList();
+
+        public IEnumerable<Company> GetByIds(IEnumerable<Guid> ids, bool trackchanges) =>
+            FindByCondition(x => ids.Contains(x.id), trackchanges)
+            .ToList();
+        
 
         public Company GetCompany(Guid companyId, bool trackchanges) =>
             FindByCondition(c => c.id.Equals(companyId), trackchanges)
