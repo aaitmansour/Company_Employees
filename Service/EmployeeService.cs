@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared.DataTransferObject;
 using Entities.Exceptions;
+using Entities.Modeles;
 
 namespace Service
 {
@@ -22,6 +23,19 @@ namespace Service
             _logger = logger;
             _repository = repository;
             _mapper = mapper;
+        }
+
+        public EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreationDto employeeForCreation, bool trackchanges)
+        {
+            var company = _repository.Company.GetCompany(companyId, trackchanges);
+            if (company is null)
+                throw new CompanyNotFoundException(companyId);
+            var employeeEntity = _mapper.Map<Employee>(employeeForCreation);
+            _repository.Employee.CreateEmployeeForCompany(companyId, employeeEntity);
+            _repository.Save();
+
+            var employeeToReturn = _mapper.Map<EmployeeDto>(employeeEntity);
+            return employeeToReturn;
         }
 
         public EmployeeDto GetEmployee(Guid companyId, Guid id, bool trackchanges)
