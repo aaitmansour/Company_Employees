@@ -36,5 +36,11 @@ namespace CompanyEmployee.Presentation.Controllers
             var createdCompany = _service.CompanyService.CreateCompany(company);
             return CreatedAtRoute("CompanyById", new { id = createdCompany.id }, createdCompany);
         }
+        [HttpGet("collection/({ids})", Name ="CompanyCollection")]
+        public IActionResult GetCompanyCollection(IEnumerable<Guid> ids)
+        {
+            var compamies = _service.CompanyService.GetByIds(ids, trackChanges: false);
+            return Ok(compamies);
+        }
     }
 }
