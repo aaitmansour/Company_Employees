@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 
-#region services
+
 // Add services to the container.
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIIsIntegration(); 
@@ -34,7 +34,7 @@ builder.Services.AddControllers(config =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureLoggerService();
-#endregion
+
 //builder.Services.ConfigureRepositoryManager();
 
 
@@ -46,10 +46,10 @@ app.ConfigueExceptionHandler(logger);
 if (app.Environment.IsProduction())
 {
     app.UseHsts();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    //app.UseSwagger();
+    //app.UseSwaggerUI();
 }
-#region Midlleware
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -101,4 +101,4 @@ app.Run(async context =>
 });
 
 app.MapControllers();
-#endregion
+

@@ -31,6 +31,8 @@ namespace Repository
         public Company GetCompany(Guid companyId, bool trackchanges) =>
             FindByCondition(c => c.id.Equals(companyId), trackchanges)
             .SingleOrDefault();
+
+        public void DeleteCompany(Company company) => Delete(company);
         
     }
 }
