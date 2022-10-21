@@ -47,7 +47,7 @@ namespace Service
             _repository.Save();
             var companyCollectionToReturn =
             _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
-            var ids = string.Join(",", companyCollectionToReturn.Select(c => c.Id));
+            var ids = string.Join(",", companyCollectionToReturn.Select(c => c.id));
             return (companies: companyCollectionToReturn, ids: ids);
 
         }

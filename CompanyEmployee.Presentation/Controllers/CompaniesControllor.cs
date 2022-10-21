@@ -52,5 +52,7 @@ namespace CompanyEmployee.Presentation.Controllers
         {
             var result = _service.CompanyService.CreateCompanyCollection(companycollection);
             return CreatedAtRoute("CompanyCollection", new { result.ids }, result.companies);
+        }
     }
 }
+
