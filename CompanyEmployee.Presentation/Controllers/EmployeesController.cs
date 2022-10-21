@@ -31,5 +31,12 @@ namespace CompanyEmployee.Presentation.Controllers
             return CreatedAtRoute("GetEmployeesForCompany", new {companyId, id = employeeToReturn.Id}, employeeToReturn);
         }
 
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteEmployeeForCompny(Guid companyId, Guid Id)
+        {
+            _service.EmployeeService.DeleteEmployeeForCompany(companyId, Id, trackChanges: false);
+            return NoContent();
+        }
+
     }
 }
