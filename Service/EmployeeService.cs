@@ -77,5 +77,19 @@ namespace Service
             var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employeesFromDb);
             return employeesDto;
         }
+
+        public void UpdateEmployeeForCompany(Guid compayId, Guid id, EmployeeForUpdateDto employeeForUpdate, bool cmpTrackChanges, bool empTrackChanges)
+        {
+            var company = _repository.Company.GetCompany(compayId, cmpTrackChanges);
+            if (company is null)
+                throw new CompanyNotFoundException(compayId);
+
+            var employeeEntity = _repository.Employee.GetEmployee(compayId, id, empTrackChanges);
+            if (employeeEntity is null)
+                throw new EmployeeNotFoundException(id);
+
+            _mapper.Map(employeeForUpdate, employeeEntity);
+            _repository.Save();
+        }
     }
 }

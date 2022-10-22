@@ -13,5 +13,6 @@ namespace Service.Contracts
         EmployeeDto GetEmployee(Guid companyId, Guid id, bool trackchanges);
         EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreationDto employeeForCreation, bool trackchanges);
         void DeleteEmployeeForCompany(Guid companyId, Guid id, bool trackChanges);
+        void UpdateEmployeeForCompany(Guid compayId, Guid id, EmployeeForUpdateDto employeeForUpdate, bool cmpTrackChanges, bool empTrackChanges);
     }
 }
