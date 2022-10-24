@@ -10,10 +10,12 @@ LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nl
 
 
 NewtonsoftJsonInputFormatter GetJsonPatchInputFormatter() =>
-     new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
+
+    new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
     .Services.BuildServiceProvider()
     .GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters
     .OfType<NewtonsoftJsonInputFormatter>().First();
+
 // Add services to the container.
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIIsIntegration(); 
