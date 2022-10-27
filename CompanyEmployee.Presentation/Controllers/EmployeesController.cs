@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployee.Presentation.Controllers
 {
-    [Route("api/companies/{companyId/employees}")]
+    [Route("api/companies/{companyId}/employees")]
     public class EmployeesController : ControllerBase
     {
         private readonly IServiceManager _service;
@@ -28,6 +28,9 @@ namespace CompanyEmployee.Presentation.Controllers
         {
             if (employee is null)
                 return BadRequest("EmployeeForCreationDto object is null");
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             var employeeToReturn = _service.EmployeeService.CreateEmployeeForCompany(companyId, employee, trackchanges: false);
             return CreatedAtRoute("GetEmployeesForCompany", new {companyId, id = employeeToReturn.Id}, employeeToReturn);
         }
